@@ -1,0 +1,4 @@
+rootProject.name = 'OOP-lecture'
+include 'pos-app'
+include 'user-app'
+
