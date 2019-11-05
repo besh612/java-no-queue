@@ -1,24 +1,37 @@
 package com.noqueue.pos;
 
-import com.noqueue.pos.ui.BaseView;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.json.simple.*;
 
-public class PosMain {
+import com.noqueue.pos.model.Food;
+import com.noqueue.pos.utils.JsonParser;
 
-	public static void main(String[] args)
-		throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-		System.out.println("Pos Main");
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+public class PosMain extends Application {
 
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				BaseView bv = new BaseView();
-				bv.setVisible(true);
-			}
-		});
+	public ArrayList<Food> datas = new ArrayList<>();
 
+	public PosMain() throws Exception {
+		JSONArray array = null;
+		array = JsonParser.getDataList();
+		for (Object o : array) {
+			datas.add(new Food((JSONObject) o));
+		}
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("/PosView.fxml"));
+		primaryStage.setTitle("NoQueue POS");
+		primaryStage.setScene(new Scene(root, 900, 600));
+		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
