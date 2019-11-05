@@ -19,7 +19,10 @@ public class Food {
 	/**
 	 * Constructor with some initial data.
 	 *
-	 * param name : 음식 이름 param cornerName : 음식 이름 param price : 음식 가격 param cornerNum : 식당
+	 * param name : 음식 이름
+	 * param cornerName : 음식 이름
+	 * param price : 음식 가격
+	 * param cornerNum : 식당
 	 * 번호(1:E스퀘어, 2:감성코어)
 	 */
 	public Food(JSONObject o) {

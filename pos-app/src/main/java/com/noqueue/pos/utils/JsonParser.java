@@ -9,7 +9,7 @@ public class JsonParser {
 
 	public static JSONArray getDataList() throws Exception {
 		JSONParser jsonParser = new JSONParser();
-		Reader reader = new FileReader("pos-app/src/main/resources/db.json");
+		Reader reader = new FileReader("pos-app/src/main/resources/datas/db.json");
 		JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 		return (JSONArray) jsonObject.get("lists");
 	}

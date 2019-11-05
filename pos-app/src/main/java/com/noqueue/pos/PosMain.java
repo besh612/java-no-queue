@@ -1,6 +1,7 @@
 package com.noqueue.pos;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,8 @@ public class PosMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/PosView.fxml"));
+		Parent root = FXMLLoader.load(
+			Objects.requireNonNull(getClass().getClassLoader().getResource("views/PosView.fxml")));
 		primaryStage.setTitle("NoQueue POS");
 		primaryStage.setScene(new Scene(root, 900, 600));
 		primaryStage.show();
