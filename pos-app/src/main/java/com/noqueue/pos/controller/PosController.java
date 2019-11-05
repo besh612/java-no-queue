@@ -3,6 +3,7 @@ package com.noqueue.pos.controller;
 import com.noqueue.pos.PosMain;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,12 +17,14 @@ public class PosController implements Initializable {
 	private Button btnSetting;
 	@FXML
 	private GridPane menuGrid;
+	@FXML
+	private Label orderCounter;
 
 	private PosMain posMain;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		System.out.println("is called");
+		System.out.println("pos system initialize");
 		try {
 			setGridLabel();
 		} catch (Exception e) {
@@ -44,5 +47,9 @@ public class PosController implements Initializable {
 	@FXML
 	private void handleButtonAction(ActionEvent event) {
 		System.out.println("press!! : " + event.toString());
+	}
+
+	public void setOrderLabelCount(String orderCount) {
+		Platform.runLater(() -> orderCounter.setText(orderCount));
 	}
 }

@@ -1,5 +1,6 @@
 package com.noqueue.pos.model;
 
+import java.io.Serializable;
 import javafx.beans.property.*;
 import org.json.simple.JSONObject;
 
@@ -9,7 +10,7 @@ import org.json.simple.JSONObject;
  * @author 배성훈
  */
 
-public class Food {
+public class Food implements Serializable {
 
 	private final StringProperty name;
 	private final StringProperty cornerName;
