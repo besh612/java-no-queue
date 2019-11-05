@@ -12,5 +12,9 @@ repositories {
 }
 
 dependencies {
+    // This dependency is found on compile classpath of this component and consumers.
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    // Use JUnit test framework
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
