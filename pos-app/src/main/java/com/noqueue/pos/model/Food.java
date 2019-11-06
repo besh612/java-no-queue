@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 
 public class Food implements Serializable {
 
+	private final IntegerProperty id;
 	private final StringProperty name;
 	private final StringProperty cornerName;
 	private final IntegerProperty price;
@@ -20,18 +21,28 @@ public class Food implements Serializable {
 	/**
 	 * Constructor with some initial data.
 	 *
-	 * param name : 음식 이름
-	 * param cornerName : 음식 이름
-	 * param price : 음식 가격
-	 * param cornerNum : 식당
+	 * param name : 음식 이름 param cornerName : 코 이름 param price : 음식 가격 param cornerNum : 식당
 	 * 번호(1:E스퀘어, 2:감성코어)
 	 */
 	public Food(JSONObject o) {
+		this.id = new SimpleIntegerProperty(Integer.parseInt(o.get("id").toString()));
 		this.name = new SimpleStringProperty(o.get("name").toString());
 		this.cornerName = new SimpleStringProperty(o.get("corner_name").toString());
 		this.price = new SimpleIntegerProperty(Integer.parseInt(o.get("price").toString()));
 		this.cornerNum = new SimpleIntegerProperty(
 			Integer.parseInt(o.get("corner_num").toString()));
+	}
+
+	public int getId() {
+		return id.get();
+	}
+
+	public IntegerProperty idProperty() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id.set(id);
 	}
 
 	public String getFoodName() {
@@ -47,7 +58,7 @@ public class Food implements Serializable {
 	}
 
 	public String getCornerName() {
-		return name.get();
+		return cornerName.get();
 	}
 
 	public void setCornerName(String name) {
