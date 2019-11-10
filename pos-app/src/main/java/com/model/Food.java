@@ -1,4 +1,4 @@
-package com.noqueue.pos.model;
+package com.model;
 
 import java.io.Serializable;
 import javafx.beans.property.*;

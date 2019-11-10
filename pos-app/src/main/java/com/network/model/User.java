@@ -1,7 +1,7 @@
-package com.noqueue.user.model;
+package com.network.model;
 
-import com.noqueue.pos.server.model.Status;
 import java.io.Serializable;
+
 
 public class User implements Serializable {
 

@@ -1,4 +1,4 @@
-package com.noqueue.pos.server.model;
+package com.network.model;
 
 public enum Status {
     ONLINE, OFFLINE

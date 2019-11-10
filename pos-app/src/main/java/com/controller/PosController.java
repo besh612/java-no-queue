@@ -1,6 +1,7 @@
-package com.noqueue.pos.controller;
+package com.controller;
 
-import com.noqueue.pos.PosMain;
+import com.PosMain;
+import com.network.Server;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -30,6 +31,10 @@ public class PosController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		Runnable server = new Server();
+		Thread x = new Thread(server);
+		x.start();
 	}
 
 	private void setGridLabel() throws Exception {

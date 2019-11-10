@@ -1,5 +1,6 @@
-package com.noqueue.pos.server.model;
+package com.network.model;
 
+import com.network.ServerType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,21 +9,10 @@ public class Message implements Serializable {
 
 	private String name;
 	private String msg;
+	private ServerType type;
 	private int count;
 	private ArrayList<User> list;
 	private ArrayList<User> users;
-	
-	public byte[] getVoiceMsg() {
-		return voiceMsg;
-	}
-
-	private byte[] voiceMsg;
-
-	public String getPicture() {
-		return picture;
-	}
-
-	private String picture;
 
 	public Message() {
 	}
@@ -36,8 +26,15 @@ public class Message implements Serializable {
 	}
 
 	public String getMsg() {
-
 		return msg;
+	}
+
+	public ServerType getType() {
+		return type;
+	}
+
+	public void setType(ServerType type) {
+		this.type = type;
 	}
 
 	public void setMsg(String msg) {
@@ -60,21 +57,11 @@ public class Message implements Serializable {
 		return this.count;
 	}
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-
 	public ArrayList<User> getUsers() {
 		return users;
 	}
 
 	public void setUsers(ArrayList<User> users) {
 		this.users = users;
-	}
-
-
-	public void setVoiceMsg(byte[] voiceMsg) {
-		this.voiceMsg = voiceMsg;
 	}
 }

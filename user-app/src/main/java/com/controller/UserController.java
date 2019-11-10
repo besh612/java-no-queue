@@ -1,17 +1,16 @@
-package com.noqueue.user.controller;
+package com.controller;
 
-import com.noqueue.pos.PosMain;
-import com.noqueue.pos.model.Food;
-import com.noqueue.user.network.Listener;
-import com.noqueue.user.views.CustomCell;
-import java.io.IOException;
+import com.PosMain;
+import com.model.Food;
+import com.network.Listener;
+import com.views.CustomCell;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 public class UserController implements Initializable {
@@ -26,12 +25,7 @@ public class UserController implements Initializable {
 	public UserController() throws Exception {
 		posMain = new PosMain();
 		foodObservableList = FXCollections.observableArrayList();
-
-		for (int i = 0; i < posMain.datas.size(); i++) {
-			System.out.println("add : " + posMain.datas.get(i).getFoodName());
-			foodObservableList.add(posMain.datas.get(i));
-		}
-
+		foodObservableList.addAll(posMain.datas);
 	}
 
 	@Override
@@ -39,5 +33,14 @@ public class UserController implements Initializable {
 		System.out.println("user app initialize");
 		listView.setItems(foodObservableList);
 		listView.setCellFactory(foodListView -> new CustomCell());
+
+		Listener listener = new Listener("127.0.0.1", randomId());
+		Thread x = new Thread(listener);
+		x.start();
+	}
+
+	private String randomId() {
+		Random rand = new Random();
+		return String.format("%04d", rand.nextInt(10000));
 	}
 }
