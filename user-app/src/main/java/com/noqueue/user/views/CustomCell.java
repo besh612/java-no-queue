@@ -1,12 +1,13 @@
 package com.noqueue.user.views;
 
-import com.noqueue.pos.model.Food;
-import java.io.IOException;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.layout.GridPane;
+	import com.noqueue.pos.model.Food;
+	import java.io.IOException;
+	import javafx.fxml.FXML;
+	import javafx.fxml.FXMLLoader;
+	import javafx.scene.control.Button;
+	import javafx.scene.control.Label;
+	import javafx.scene.control.ListCell;
+	import javafx.scene.layout.GridPane;
 
 public class CustomCell extends ListCell<Food> {
 
@@ -18,6 +19,8 @@ public class CustomCell extends ListCell<Food> {
 	private Label label3;
 	@FXML
 	private GridPane gridPane;
+	@FXML
+	private Button purchaseBtn;
 
 	private FXMLLoader mLLoader;
 
@@ -45,8 +48,14 @@ public class CustomCell extends ListCell<Food> {
 			label2.setText(food.getPrice() + "원");
 			label3.setText(food.getCornerName());
 
+			purchaseBtn.setOnAction(event -> buttonPress(food));
+
 			setText(null);
 			setGraphic(gridPane);
 		}
+	}
+
+	private void buttonPress(Food food) {
+		System.out.println("id: " + food.getId() + " food name: " + food.getFoodName());
 	}
 }

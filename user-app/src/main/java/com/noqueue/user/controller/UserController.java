@@ -2,14 +2,16 @@ package com.noqueue.user.controller;
 
 import com.noqueue.pos.PosMain;
 import com.noqueue.pos.model.Food;
+import com.noqueue.user.network.Listener;
 import com.noqueue.user.views.CustomCell;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 public class UserController implements Initializable {
@@ -38,5 +40,4 @@ public class UserController implements Initializable {
 		listView.setItems(foodObservableList);
 		listView.setCellFactory(foodListView -> new CustomCell());
 	}
-
 }
