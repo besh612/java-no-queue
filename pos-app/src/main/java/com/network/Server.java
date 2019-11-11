@@ -82,6 +82,8 @@ public class Server implements Runnable {
 					Message inputMsg = (Message) input.readObject();
 					switch (inputMsg.getType()) {
 						case USER:
+							System.out.println("get message from " + inputMsg.getName() +
+								" 나는 " + inputMsg.getMsg() + " 주문할게요 ");
 							write(inputMsg);
 							break;
 						case CONNECTED:

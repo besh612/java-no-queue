@@ -59,6 +59,7 @@ public class Listener implements Runnable {
 
 	public static void send(String msg) throws IOException {
 		Message sendMsg = new Message();
+		sendMsg.setType(ServerType.USER);
 		sendMsg.setName(userName);
 		sendMsg.setMsg(msg);
 		oos.writeObject(sendMsg);
