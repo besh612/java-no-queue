@@ -22,6 +22,8 @@ public class CustomCell extends ListCell<Food> {
 	private GridPane gridPane;
 	@FXML
 	private Button purchaseBtn;
+	@FXML
+	private Button moveBtn;
 
 	private FXMLLoader mLLoader;
 
@@ -55,6 +57,10 @@ public class CustomCell extends ListCell<Food> {
 				}
 			});
 
+			moveBtn.setOnAction(event -> {
+				handleMovePage();
+			});
+
 			setText(null);
 			setGraphic(gridPane);
 		}
@@ -63,5 +69,9 @@ public class CustomCell extends ListCell<Food> {
 	private void handlePurchaseButton(Food food) throws IOException {
 		System.out.println("이름: " + food.getFoodName());
 		Listener.send(food.getFoodName());
+	}
+
+	private void handleMovePage() {
+		System.out.println("변라!");
 	}
 }

@@ -34,6 +34,7 @@
                 <Label fx:id="label1" text="Label" GridPane.columnIndex="1" />
                 <Label fx:id="label2" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <Label fx:id="label3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="moveBtn" text="변해라!" GridPane.columnIndex="2" GridPane.rowIndex="0" />
               </children>
             </GridPane>
             <AnchorPane prefHeight="50.0" prefWidth="80.0">
