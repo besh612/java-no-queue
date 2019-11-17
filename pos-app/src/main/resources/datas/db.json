@@ -2,38 +2,43 @@
   "lists": [
     {
       "id": 1,
-      "name": "부대찌개",
-      "price": 2500,
+      "name": "짬뽕순두부찌개",
+      "price": 3500,
       "corner_num": 1,
-      "corner_name": "백반"
+      "corner_name": "백반",
+      "detail": "백미밥+만두튀김+배추김치"
     },
     {
       "id": 2,
-      "name": "삼겹살덮밥",
-      "price": 4000,
+      "name": "베이컨양파덮밥",
+      "price": 3500,
       "corner_num": 1,
-      "corner_name": "일품"
+      "corner_name": "일품",
+      "detail": "우동국물+배추김치"
     },
     {
       "id": 3,
       "name": "라면한그릇",
       "price": 2300,
       "corner_num": 1,
-      "corner_name": "누들"
+      "corner_name": "누들",
+      "detail": ""
     },
     {
       "id": 4,
       "name": "라볶이",
       "price": 3500,
       "corner_num": 1,
-      "corner_name": "누들"
+      "corner_name": "누들",
+      "detail": ""
     },
     {
       "id": 5,
-      "name": "돈까스정식",
-      "price": 3500,
+      "name": "치즈돈까스정식",
+      "price": 4000,
       "corner_num": 1,
-      "corner_name": "양식"
+      "corner_name": "양식",
+      "detail": "백미밥+크림스프+마카로니샐러드"
     }
   ]
 }
