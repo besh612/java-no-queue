@@ -1,31 +1,34 @@
 package com.views;
 
+import com.controller.DetailController;
 import com.model.Food;
-import com.network.Listener;
+import com.utils.StageStore;
 import java.io.IOException;
+import java.util.Objects;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class CustomCell extends ListCell<Food> {
 
 	@FXML
-	private Label label1;
+	private Label lbFoodName;
 	@FXML
-	private Label label2;
+	private Label lbFoodDetail;
 	@FXML
-	private Label label3;
+	private Label lbFoodPrice;
 	@FXML
-	private GridPane gridPane;
+	private AnchorPane apCell;
 	@FXML
 	private Button purchaseBtn;
-	@FXML
-	private Button moveBtn;
 
 	private FXMLLoader mLLoader;
+	private Stage stage = StageStore.stage;
 
 	@Override
 	protected void updateItem(Food food, boolean empty) {
@@ -45,33 +48,31 @@ public class CustomCell extends ListCell<Food> {
 					e.printStackTrace();
 				}
 			}
-			label1.setText(food.getFoodName());
-			label2.setText(food.getPrice() + "원");
-			label3.setText(food.getCornerName());
+			lbFoodName.setText(food.getFoodName());
+			lbFoodPrice.setText("• " + food.getPrice() + "원");
+			lbFoodDetail.setText(food.getMenuDetail());
 
 			purchaseBtn.setOnAction(event -> {
 				try {
-					handlePurchaseButton(food);
+					handleMovePage(food);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			});
 
-			moveBtn.setOnAction(event -> {
-				handleMovePage();
-			});
-
 			setText(null);
-			setGraphic(gridPane);
+			setGraphic(apCell);
 		}
 	}
 
-	private void handlePurchaseButton(Food food) throws IOException {
-		System.out.println("이름: " + food.getFoodName());
-		Listener.send(food.getFoodName());
-	}
+	private void handleMovePage(Food food) throws IOException {
+		FXMLLoader loader = new FXMLLoader(Objects
+			.requireNonNull(getClass().getClassLoader().getResource("views/DetailView.fxml")));
+		Parent detailView = loader.load();
+		DetailController detailController = loader.getController();
+		detailController.initData(food);
 
-	private void handleMovePage() {
-		System.out.println("변라!");
+		AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+		root.getChildren().add(detailView);
 	}
 }
