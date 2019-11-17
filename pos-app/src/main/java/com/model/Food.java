@@ -17,6 +17,7 @@ public class Food implements Serializable {
 	private final StringProperty cornerName;
 	private final IntegerProperty price;
 	private final IntegerProperty cornerNum;
+	private final StringProperty menuDetail;
 
 	/**
 	 * Constructor with some initial data.
@@ -31,6 +32,7 @@ public class Food implements Serializable {
 		this.price = new SimpleIntegerProperty(Integer.parseInt(o.get("price").toString()));
 		this.cornerNum = new SimpleIntegerProperty(
 			Integer.parseInt(o.get("corner_num").toString()));
+		this.menuDetail = new SimpleStringProperty(o.get("detail").toString());
 	}
 
 	public int getId() {
@@ -92,4 +94,17 @@ public class Food implements Serializable {
 	public IntegerProperty CornerProperty() {
 		return cornerNum;
 	}
+
+	public String getMenuDetail() {
+		return menuDetail.get();
+	}
+
+	public StringProperty menuDetailProperty() {
+		return menuDetail;
+	}
+
+	public void setMenuDetail(String menuDetail) {
+		this.menuDetail.set(menuDetail);
+	}
+
 }
