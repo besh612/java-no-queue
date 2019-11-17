@@ -27,8 +27,13 @@ public class CustomCell extends ListCell<Food> {
 	@FXML
 	private Button purchaseBtn;
 
+	private final String userName;
 	private FXMLLoader mLLoader;
 	private Stage stage = StageStore.stage;
+
+	public CustomCell(String orderName) {
+		this.userName = orderName;
+	}
 
 	@Override
 	protected void updateItem(Food food, boolean empty) {
@@ -70,7 +75,7 @@ public class CustomCell extends ListCell<Food> {
 			.requireNonNull(getClass().getClassLoader().getResource("views/DetailView.fxml")));
 		Parent detailView = loader.load();
 		DetailController detailController = loader.getController();
-		detailController.initData(food);
+		detailController.initData(food, userName);
 
 		AnchorPane root = (AnchorPane) stage.getScene().getRoot();
 		root.getChildren().add(detailView);

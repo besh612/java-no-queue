@@ -1,6 +1,5 @@
 package com.network.model;
 
-import com.network.model.Status;
 import java.io.Serializable;
 
 public class User implements Serializable {

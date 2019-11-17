@@ -30,11 +30,12 @@ public class UserController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		String orderName = randomId();
 		System.out.println("user app initialize");
 		listView.setItems(foodObservableList);
-		listView.setCellFactory(foodListView -> new CustomCell());
+		listView.setCellFactory(foodListView -> new CustomCell(orderName));
 
-		Listener listener = new Listener("127.0.0.1", randomId());
+		Listener listener = new Listener("127.0.0.1", orderName);
 		Thread x = new Thread(listener);
 		x.start();
 	}
