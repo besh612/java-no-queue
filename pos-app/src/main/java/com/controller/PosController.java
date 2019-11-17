@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.PosMain;
+import com.utils.Listener;
 import com.network.Server;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,10 +32,12 @@ public class PosController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		Runnable server = new Server();
+		Listener listener = new Listener("127.0.0.1", "ADMIN");
 		Thread x = new Thread(server);
+		Thread y = new Thread(listener);
 		x.start();
+		y.start();
 	}
 
 	private void setGridLabel() throws Exception {

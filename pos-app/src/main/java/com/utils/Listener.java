@@ -1,5 +1,6 @@
-package com.network;
+package com.utils;
 
+import com.network.ServerType;
 import com.network.model.Message;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,12 +29,13 @@ public class Listener implements Runnable {
 	@Override
 	public void run() {
 		try {
+			Thread.sleep(2000);
 			socket = new Socket(hostName, PORT);
 			OutputStream outputStream = socket.getOutputStream();
 			oos = new ObjectOutputStream(outputStream);
 			InputStream is = socket.getInputStream();
 			input = new ObjectInputStream(is);
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			System.out.println("연결 실패");
 		}
 		System.out
@@ -41,19 +43,15 @@ public class Listener implements Runnable {
 
 		try {
 			connect();
-			System.out.println("소켓 연결 성공");
+			System.out.println("ADMIN 소켓 연결 성공");
 			while (socket.isConnected()) {
 				Message message = null;
 				message = (Message) input.readObject();
 				System.out.println("is connected: " + input.readObject().toString());
 
 				if (message != null) {
-					if(message.getType().equals("SERVER")){
-						System.out.println("서버로부터의 메시지");
-					}else{
-						System.out.println("수신: " + message.getMsg());
-						System.out.println("타입: " + message.getType());
-					}
+					System.out.println("수신: " + message.getMsg());
+					System.out.println("타입: " + message.getType());
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {
@@ -63,7 +61,7 @@ public class Listener implements Runnable {
 
 	public static void send(String msg) throws IOException {
 		Message sendMsg = new Message();
-		sendMsg.setType(ServerType.USER);
+		sendMsg.setType(ServerType.SERVER);
 		sendMsg.setName(userName);
 		sendMsg.setMsg(msg);
 		oos.writeObject(sendMsg);

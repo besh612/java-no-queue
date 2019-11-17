@@ -89,6 +89,10 @@ public class Server implements Runnable {
 						case CONNECTED:
 							System.out.println("처음 접속");
 							break;
+						case SERVER:
+							System.out.println("서버님이 말씀하십니다.");
+							write(inputMsg);
+							break;
 						default:
 							throw new IllegalStateException(
 								"Unexpected value: " + inputMsg.getType());
