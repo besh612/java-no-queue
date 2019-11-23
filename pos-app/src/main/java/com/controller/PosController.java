@@ -1,16 +1,25 @@
 package com.controller;
 
 import com.PosMain;
+import com.model.Food;
+import com.model.Order;
 import com.utils.Listener;
 import com.network.Server;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
 public class PosController implements Initializable {
@@ -22,7 +31,15 @@ public class PosController implements Initializable {
 	@FXML
 	private Label orderCounter;
 
+	private ObservableMap<Integer, ArrayList> orderObservableMap;
+
+	private ArrayList<Order> orderDatas = new ArrayList<>();
+
 	private PosMain posMain;
+
+	public PosController() {
+		orderObservableMap = FXCollections.observableMap();
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -32,6 +49,7 @@ public class PosController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		Runnable server = new Server();
 		Listener listener = new Listener("127.0.0.1", "ADMIN");
 		Thread x = new Thread(server);
