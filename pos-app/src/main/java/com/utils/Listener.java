@@ -1,5 +1,6 @@
 package com.utils;
 
+import com.controller.PosController;
 import com.network.ServerType;
 import com.network.model.Message;
 import java.io.IOException;
@@ -20,10 +21,12 @@ public class Listener implements Runnable {
 	private Socket socket;
 	private String hostName;
 	private ObjectInputStream input;
+	private PosController controller;
 
-	public Listener(String hostName, String userName) {
+	public Listener(String hostName, String userName, PosController controller) {
 		this.hostName = hostName;
 		Listener.userName = userName;
+		this.controller = controller;
 	}
 
 	@Override
@@ -47,11 +50,21 @@ public class Listener implements Runnable {
 			while (socket.isConnected()) {
 				Message message = null;
 				message = (Message) input.readObject();
-				System.out.println("is connected: " + input.readObject().toString());
 
-				if (message != null) {
-					System.out.println("수신: " + message.getMsg());
-					System.out.println("타입: " + message.getType());
+				switch (message.getType()) {
+					case USER:
+						controller.getOrderData(message);
+						break;
+					case NOTIFICATION:
+						break;
+					case SERVER:
+						break;
+					case CONNECTED:
+						break;
+					case DISCONNECTED:
+						break;
+					case STATUS:
+						break;
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {

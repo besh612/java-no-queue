@@ -3,6 +3,7 @@ package com.controller;
 import com.PosMain;
 import com.model.Food;
 import com.network.Listener;
+import com.network.model.Message;
 import com.views.CustomCell;
 import java.net.URL;
 import java.util.Random;
@@ -12,6 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class UserController implements Initializable {
 
@@ -35,9 +38,25 @@ public class UserController implements Initializable {
 		listView.setItems(foodObservableList);
 		listView.setCellFactory(foodListView -> new CustomCell(orderName));
 
-		Listener listener = new Listener("127.0.0.1", orderName);
+		Listener listener = new Listener("127.0.0.1", orderName, this);
 		Thread x = new Thread(listener);
 		x.start();
+	}
+
+	public synchronized void getData(Message msg) {
+		System.out.println("수신받은 데이터 USER : " + String.valueOf(msg));
+		handleAlertSound();
+	}
+
+	private void handleAlertSound() {
+		try {
+			Media hit = new Media(
+				getClass().getClassLoader().getResource("sounds/notification.wav").toString());
+			MediaPlayer mediaPlayer = new MediaPlayer(hit);
+			mediaPlayer.play();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private String randomId() {

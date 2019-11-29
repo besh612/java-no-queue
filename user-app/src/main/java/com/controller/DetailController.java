@@ -68,7 +68,7 @@ public class DetailController implements Initializable {
 	}
 
 	private void handlePurchaseButton(Food food, String userName) throws IOException {
-		Listener.send(food.getFoodName());
+		Listener.send(food.getFoodName(), food.getId());
 		FXMLLoader loader = new FXMLLoader(Objects
 			.requireNonNull(getClass().getClassLoader().getResource("views/WaitingView.fxml")));
 		Parent waitingView = loader.load();

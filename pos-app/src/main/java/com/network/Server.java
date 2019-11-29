@@ -1,5 +1,6 @@
 package com.network;
 
+import com.controller.PosController;
 import com.network.model.Message;
 import com.network.model.User;
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class Server implements Runnable {
 		private OutputStream os;
 		private ObjectOutputStream output;
 		private InputStream is;
+		private PosController controller;
 
 		Handler(Socket socket) {
 			this.socket = socket;
@@ -80,23 +82,20 @@ public class Server implements Runnable {
 
 				while (socket.isConnected()) {
 					Message inputMsg = (Message) input.readObject();
-					switch (inputMsg.getType()) {
-						case USER:
-							System.out.println("get message from " + inputMsg.getName() +
-								" 나는 " + inputMsg.getName() + "인데" + inputMsg.getMsg() + " 주문할게요 ");
-							write(inputMsg);
-
-							break;
-						case CONNECTED:
-							System.out.println("처음 접속");
-							break;
-						case SERVER:
-							System.out.println("서버님이 말씀하십니다.");
-							write(inputMsg);
-							break;
-						default:
-							throw new IllegalStateException(
-								"Unexpected value: " + inputMsg.getType());
+					if (inputMsg != null) {
+						switch (inputMsg.getType()) {
+							case USER:
+								write(inputMsg);
+								break;
+							case CONNECTED:
+								break;
+							case SERVER:
+								write(inputMsg);
+								break;
+							default:
+								throw new IllegalStateException(
+									"Unexpected value: " + inputMsg.getType());
+						}
 					}
 				}
 			} catch (SocketException socketException) {

@@ -1,5 +1,6 @@
 package com.network;
 
+import com.controller.UserController;
 import com.network.model.Message;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,10 +20,12 @@ public class Listener implements Runnable {
 	private Socket socket;
 	private String hostName;
 	private ObjectInputStream input;
+	private UserController controller;
 
-	public Listener(String hostName, String userName) {
+	public Listener(String hostName, String userName, UserController controller) {
 		this.hostName = hostName;
 		Listener.userName = userName;
+		this.controller = controller;
 	}
 
 	@Override
@@ -45,15 +48,10 @@ public class Listener implements Runnable {
 			while (socket.isConnected()) {
 				Message message = null;
 				message = (Message) input.readObject();
-				System.out.println("is connected: " + input.readObject().toString());
 
-				if (message != null) {
-					if(message.getType().equals("SERVER")){
-						System.out.println("서버로부터의 메시지");
-					}else{
-						System.out.println("수신: " + message.getMsg());
-						System.out.println("타입: " + message.getType());
-					}
+				if (message.getType() == ServerType.SERVER) {
+					controller.getData(message);
+					System.out.println("서버로부터의 메시지");
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {
@@ -61,11 +59,12 @@ public class Listener implements Runnable {
 		}
 	}
 
-	public static void send(String msg) throws IOException {
+	public static void send(String name, int id) throws IOException {
 		Message sendMsg = new Message();
 		sendMsg.setType(ServerType.USER);
 		sendMsg.setName(userName);
-		sendMsg.setMsg(msg);
+		sendMsg.setMsg(name);
+		sendMsg.setId(id);
 		oos.writeObject(sendMsg);
 		oos.flush();
 	}

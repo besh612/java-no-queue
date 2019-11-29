@@ -11,6 +11,7 @@ public class Message implements Serializable {
 	private String msg;
 	private ServerType type;
 	private int count;
+	private int id;
 	private ArrayList<User> list;
 	private ArrayList<User> users;
 
@@ -63,5 +64,13 @@ public class Message implements Serializable {
 
 	public void setUsers(ArrayList<User> users) {
 		this.users = users;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
