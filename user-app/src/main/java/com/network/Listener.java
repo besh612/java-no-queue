@@ -51,7 +51,6 @@ public class Listener implements Runnable {
 
 				if (message.getType() == ServerType.SERVER) {
 					controller.getData(message);
-					System.out.println("서버로부터의 메시지");
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {

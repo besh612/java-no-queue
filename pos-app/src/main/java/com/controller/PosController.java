@@ -34,12 +34,15 @@ public class PosController implements Initializable {
 	private List<ListView> orderList;
 	@FXML
 	private Label orderCounter;
+	@FXML
+	private Label userCount;
 
 	private ArrayList<ObservableList<Message>> orderLists = new ArrayList<>();
 	private ObservableList<Message> ov;
 
 	private PosMain posMain;
 	private Runnable server;
+
 
 	public PosController() {
 		for (int i = 0; i < 5; i++) {
@@ -63,6 +66,7 @@ public class PosController implements Initializable {
 			lv.setItems(orderLists.get(cnt++));
 			lv.setCellFactory(orderListView -> new ButtonCellController(this));
 		}
+		orderCounter.setText(String.valueOf(0));
 		server = new Server();
 		Listener listener = new Listener("127.0.0.1", "ADMIN", this);
 		Thread x = new Thread(server);
@@ -81,11 +85,13 @@ public class PosController implements Initializable {
 
 	public synchronized void getOrderData(Message msg) {
 		orderLists.get(msg.getId() - 1).add(msg);
+		setOrderLabelCount(Integer.parseInt(orderCounter.getText()) + 1);
 		handleAlertSound();
 	}
 
-	public synchronized void handleOrderData(Message msg) throws IOException {
+	synchronized void handleOrderData(Message msg) throws IOException {
 		Listener.send(msg.getName());
+		setOrderLabelCount(Integer.parseInt(orderCounter.getText()) - 1);
 		orderLists.get(msg.getId() - 1).remove(msg);
 	}
 
@@ -106,7 +112,7 @@ public class PosController implements Initializable {
 		System.out.println("press!! : " + event.toString());
 	}
 
-	public void setOrderLabelCount(String orderCount) {
-		Platform.runLater(() -> orderCounter.setText(orderCount));
+	private void setOrderLabelCount(int orderCount) {
+		Platform.runLater(() -> orderCounter.setText(String.valueOf(orderCount)));
 	}
 }

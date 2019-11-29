@@ -1,0 +1,29 @@
+.lvOrder1 {
+  -fx-background-color: -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1;
+}
+
+.lvOrder2 {
+  -fx-background-color: -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1;
+}
+
+.lvOrder3 {
+  -fx-background-color: -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1;
+}
+
+.lvOrder4 {
+  -fx-background-color: -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1;
+}
+
+.lvOrder5 {
+  -fx-background-color: -fx-box-border, -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1;
+}

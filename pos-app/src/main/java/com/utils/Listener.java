@@ -51,20 +51,8 @@ public class Listener implements Runnable {
 				Message message = null;
 				message = (Message) input.readObject();
 
-				switch (message.getType()) {
-					case USER:
-						controller.getOrderData(message);
-						break;
-					case NOTIFICATION:
-						break;
-					case SERVER:
-						break;
-					case CONNECTED:
-						break;
-					case DISCONNECTED:
-						break;
-					case STATUS:
-						break;
+				if (message.getType() == ServerType.USER) {
+					controller.getOrderData(message);
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {
