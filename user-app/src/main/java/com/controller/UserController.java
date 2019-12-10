@@ -25,6 +25,8 @@ public class UserController implements Initializable {
 
 	private PosMain posMain;
 
+	private String orderName = null;
+
 	public UserController() throws Exception {
 		posMain = new PosMain();
 		foodObservableList = FXCollections.observableArrayList();
@@ -33,7 +35,7 @@ public class UserController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		String orderName = randomId();
+		orderName = randomId();
 		System.out.println("user app initialize");
 		listView.setItems(foodObservableList);
 		listView.setCellFactory(foodListView -> new CustomCell(orderName));
@@ -44,8 +46,10 @@ public class UserController implements Initializable {
 	}
 
 	public synchronized void getData(Message msg) {
-		System.out.println("수신받은 데이터 USER : " + String.valueOf(msg));
-		handleAlertSound();
+		System.out.println("수신받은 데이터 USER : " + msg.getMsg());
+		if (msg.getMsg().equals(orderName)) {
+			handleAlertSound();
+		}
 	}
 
 	private void handleAlertSound() {
