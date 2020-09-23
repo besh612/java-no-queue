@@ -1,27 +1,23 @@
 package com.utils;
 
+import java.io.*;
+import java.net.Socket;
 import com.controller.PosController;
 import com.network.ServerType;
 import com.network.model.Message;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 
 public class Listener implements Runnable {
 
 	private static final String HASCONNECTED = "has connected";
 	private static final Integer PORT = 4001;
+	private static String userName = null;
 
-	private static String userName;
 	private static ObjectOutputStream oos;
 
 	private Socket socket;
-	private String hostName;
 	private ObjectInputStream input;
-	private PosController controller;
+	private final String hostName;
+	private final PosController controller;
 
 	public Listener(String hostName, String userName, PosController controller) {
 		this.hostName = hostName;

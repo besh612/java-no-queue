@@ -1,26 +1,22 @@
 package com.controller;
 
-import com.PosMain;
-import com.network.model.Message;
-import com.utils.Listener;
-import com.network.Server;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import java.util.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.application.Platform;
+import javafx.collections.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.scene.media.*;
+import org.json.simple.*;
+
+import com.model.Food;
+import com.network.model.Message;
+import com.utils.JsonParser;
+import com.utils.Listener;
+import com.network.Server;
 
 public class PosController implements Initializable {
 
@@ -37,16 +33,11 @@ public class PosController implements Initializable {
 	@FXML
 	private Label userCount;
 
-	private ArrayList<ObservableList<Message>> orderLists = new ArrayList<>();
-	private ObservableList<Message> ov;
-
-	private PosMain posMain;
-	private Runnable server;
-
+	private final ArrayList<ObservableList<Message>> orderLists = new ArrayList<>();
 
 	public PosController() {
 		for (int i = 0; i < 5; i++) {
-			ov = FXCollections.observableArrayList();
+			ObservableList<Message> ov = FXCollections.observableArrayList();
 			orderLists.add(ov);
 		}
 	}
@@ -67,20 +58,30 @@ public class PosController implements Initializable {
 			lv.setCellFactory(orderListView -> new ButtonCellController(this));
 		}
 		orderCounter.setText(String.valueOf(0));
-		server = new Server();
+		Runnable server = new Server();
 		Listener listener = new Listener("127.0.0.1", "ADMIN", this);
-		Thread x = new Thread(server);
-		Thread y = new Thread(listener);
-		x.start();
-		y.start();
+		Thread serverThread = new Thread(server);
+		Thread listenerThread = new Thread(listener);
+		serverThread.start();
+		listenerThread.start();
 	}
 
 	private void setGridLabel() throws Exception {
-		posMain = new PosMain();
-		for (int i = 0; i < posMain.datas.size(); i++) {
-			Label label = new Label(posMain.datas.get(i).getFoodName());
+		List<Food> data = getFoodData();
+		for (int i = 0; i < data.size(); i++) {
+			Label label = new Label(data.get(i).getFoodName());
 			menuGrid.add(label, i, 0);
 		}
+	}
+
+	List<Food> getFoodData() throws Exception {
+		JSONArray array = null;
+		List<Food> foodList = new ArrayList<>();
+		array = JsonParser.getDataList();
+		for (Object o : array) {
+			foodList.add(new Food((JSONObject) o));
+		}
+		return foodList;
 	}
 
 	public synchronized void getOrderData(Message msg) {
@@ -98,14 +99,14 @@ public class PosController implements Initializable {
 	private void handleAlertSound() {
 		try {
 			Media hit = new Media(
-				getClass().getClassLoader().getResource("sounds/notification.wav").toString());
+				Objects.requireNonNull(
+					getClass().getClassLoader().getResource("sounds/notification.wav")).toString());
 			MediaPlayer mediaPlayer = new MediaPlayer(hit);
 			mediaPlayer.play();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@FXML
 	private void handleButtonAction(ActionEvent event) {

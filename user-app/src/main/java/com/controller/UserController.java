@@ -1,10 +1,5 @@
 package com.controller;
 
-import com.PosMain;
-import com.model.Food;
-import com.network.Listener;
-import com.network.model.Message;
-import com.views.CustomCell;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -16,21 +11,26 @@ import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import com.model.Food;
+import com.network.Listener;
+import com.network.model.Message;
+import com.views.CustomCell;
+
 public class UserController implements Initializable {
 
 	@FXML
 	private ListView listView;
 
-	private ObservableList<Food> foodObservableList;
-
-	private PosMain posMain;
-
 	private String orderName = null;
 
+	private final ObservableList<Food> foodObservableList;
+
+	private final Random rand = new Random();
+
 	public UserController() throws Exception {
-		posMain = new PosMain();
+		PosController pc = new PosController();
 		foodObservableList = FXCollections.observableArrayList();
-		foodObservableList.addAll(posMain.datas);
+		foodObservableList.addAll(pc.getFoodData());
 	}
 
 	@Override
@@ -64,7 +64,6 @@ public class UserController implements Initializable {
 	}
 
 	private String randomId() {
-		Random rand = new Random();
 		return String.format("%04d", rand.nextInt(10000));
 	}
 }

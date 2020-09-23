@@ -42,24 +42,12 @@ public class Message implements Serializable {
 		this.msg = msg;
 	}
 
-	public ArrayList<User> getUserlist() {
-		return list;
-	}
-
 	public void setUserlist(HashMap<String, User> userList) {
 		this.list = new ArrayList<>(userList.values());
 	}
 
 	public void setOnlineCount(int count) {
 		this.count = count;
-	}
-
-	public int getOnlineCount() {
-		return this.count;
-	}
-
-	public ArrayList<User> getUsers() {
-		return users;
 	}
 
 	public void setUsers(ArrayList<User> users) {

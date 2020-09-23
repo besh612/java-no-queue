@@ -20,7 +20,7 @@ public class Server implements Runnable {
 	/* 채팅 설정 */
 	private static final int PORT = 4001;
 	private static final HashMap<String, User> names = new HashMap<>();
-	private static HashSet<ObjectOutputStream> writers = new HashSet<>();
+	private static final HashSet<ObjectOutputStream> writers = new HashSet<>();
 	private static ArrayList<User> users = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
@@ -54,7 +54,7 @@ public class Server implements Runnable {
 	private static class Handler extends Thread {
 
 		private String name;
-		private Socket socket;
+		private final Socket socket;
 		private User user;
 		private ObjectInputStream input;
 		private OutputStream os;

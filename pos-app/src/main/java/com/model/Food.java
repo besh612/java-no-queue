@@ -12,12 +12,12 @@ import org.json.simple.JSONObject;
 
 public class Food implements Serializable {
 
-	private final IntegerProperty id;
-	private final StringProperty name;
-	private final StringProperty cornerName;
-	private final IntegerProperty price;
-	private final IntegerProperty cornerNum;
-	private final StringProperty menuDetail;
+	private final transient IntegerProperty id;
+	private final transient StringProperty name;
+	private final transient StringProperty cornerName;
+	private final transient IntegerProperty price;
+	private final transient IntegerProperty cornerNum;
+	private final transient StringProperty menuDetail;
 
 	/**
 	 * Constructor with some initial data.
@@ -39,72 +39,17 @@ public class Food implements Serializable {
 		return id.get();
 	}
 
-	public IntegerProperty idProperty() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id.set(id);
-	}
-
 	public String getFoodName() {
 		return name.get();
-	}
-
-	public void setFoodName(String name) {
-		this.name.set(name);
-	}
-
-	public StringProperty FoodNameProperty() {
-		return name;
-	}
-
-	public String getCornerName() {
-		return cornerName.get();
-	}
-
-	public void setCornerName(String name) {
-		this.cornerName.set(name);
-	}
-
-	public StringProperty CornerNameProperty() {
-		return cornerName;
 	}
 
 	public int getPrice() {
 		return price.get();
 	}
 
-	public void setPrice(Integer price) {
-		this.price.set(price);
-	}
-
-	public IntegerProperty FoodPriceProperty() {
-		return price;
-	}
-
-	public int getCorner() {
-		return cornerNum.get();
-	}
-
-	public void setCorner(Integer corner) {
-		this.cornerNum.set(corner);
-	}
-
-	public IntegerProperty CornerProperty() {
-		return cornerNum;
-	}
-
 	public String getMenuDetail() {
 		return menuDetail.get();
 	}
 
-	public StringProperty menuDetailProperty() {
-		return menuDetail;
-	}
-
-	public void setMenuDetail(String menuDetail) {
-		this.menuDetail.set(menuDetail);
-	}
 
 }
